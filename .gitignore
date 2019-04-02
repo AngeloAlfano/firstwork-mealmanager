@@ -26,3 +26,8 @@
 
 ### VS Code ###
 .vscode/
+
+##Custom ignore##
+mvnw
+mvnw.cmd
+/Pasti Settimanali.doc
