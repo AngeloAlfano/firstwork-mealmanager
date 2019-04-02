@@ -1,7 +1,7 @@
 /**
  * 
  */
-package projectzero.mealmanager.service;
+package projectzero.mealmanager.logic.service;
 
 import java.io.BufferedWriter;
 import java.util.List;

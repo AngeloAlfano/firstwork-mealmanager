@@ -1,7 +1,7 @@
 /**
  * 
  */
-package projectzero.mealmanager.provider;
+package projectzero.mealmanager.logic.provider;
 
 import static projectzero.mealmanager.utils.MealConstants.EMPTY_STRING;
 import static projectzero.mealmanager.utils.MealConstants.RECORD_FORMAT;
@@ -23,6 +23,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.stereotype.Service;
 
+import projectzero.mealmanager.logic.service.MealServices;
 import projectzero.mealmanager.model.PastiGiornalieriModel;
 import projectzero.mealmanager.model.TipoAlimento;
 import projectzero.mealmanager.model.alimenti.AlimentoModel;
@@ -33,7 +34,6 @@ import projectzero.mealmanager.model.pasti.CenaModel;
 import projectzero.mealmanager.model.pasti.ColazioneModel;
 import projectzero.mealmanager.model.pasti.PastoModel;
 import projectzero.mealmanager.model.pasti.PranzoModel;
-import projectzero.mealmanager.service.MealServices;
 
 /**
  * @author angelo.alfano

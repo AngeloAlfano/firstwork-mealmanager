@@ -13,30 +13,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import projectzero.mealmanager.configuration.BootAutoConfiguration;
+import projectzero.mealmanager.logic.service.MealServices;
 import projectzero.mealmanager.model.PastiGiornalieriModel;
 import projectzero.mealmanager.model.pasti.CenaModel;
 import projectzero.mealmanager.model.pasti.ColazioneModel;
 import projectzero.mealmanager.model.pasti.PastoModel;
 import projectzero.mealmanager.model.pasti.PranzoModel;
-import projectzero.mealmanager.provider.MealServiceProvider;
-import projectzero.mealmanager.service.MealServices;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 public class MealmanagerApplication {
 
 	private static final String FILE_PATH = "C:\\Users\\angelo.alfano\\Desktop\\firstwork\\Pasti Settimanali.doc";
-	
-//	@Autowired
-//	private static MealServices services;
-	
+
+	@Autowired
+	private static MealServices services;
+
 	/**
 	 * Main method provides the application start
 	 */
 	public static void main(String[] args) {
 
-		MealServiceProvider services = new MealServiceProvider();
-		
+		configInitializer();
 		List<PastiGiornalieriModel> pastiSettimanali = new ArrayList<>();
 		List<PastoModel> pasti = new ArrayList<>();
 		services.initPasti(21, pastiSettimanali);
@@ -44,37 +43,38 @@ public class MealmanagerApplication {
 			pasti = services.generaPasto(i, pasti);
 		}
 		int j = 0;
-		for (int i = 0; i < pasti.size(); i+=3) {
+		for (int i = 0; i < pasti.size(); i += 3) {
 			pastiSettimanali.get(j).setColazione((ColazioneModel) pasti.get(i));
-			pastiSettimanali.get(j).setPranzo((PranzoModel) pasti.get(i+1));
-			pastiSettimanali.get(j).setCena((CenaModel) pasti.get(i+2));
+			pastiSettimanali.get(j).setPranzo((PranzoModel) pasti.get(i + 1));
+			pastiSettimanali.get(j).setCena((CenaModel) pasti.get(i + 2));
 			j++;
 		}
-		
+
 		String pathname = FILE_PATH;
 		File file = new File(pathname);
-		
-		try (
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter buffer = new BufferedWriter(writer);
-			)
-		{
-		if(file.createNewFile()){
-			System.out.println("File non creato, poiche gia esistente");
-		}
-		file = Files.copy(Paths.get(pathname), Paths.get(pathname)).toFile();
-		int dayNumber = 0;
-		for (PastiGiornalieriModel pasto : pastiSettimanali) {
-			++dayNumber;
-			services.scritturaFile(pasto, buffer, dayNumber);
-		}
-		buffer.close();
-		writer.close();
-		System.out.println(String.format("Scrittura del File %s completato", file.getName()));
+
+		try (FileWriter writer = new FileWriter(file); BufferedWriter buffer = new BufferedWriter(writer);) {
+			if (file.createNewFile()) {
+				System.out.println("File non creato, poiche gia esistente");
+			}
+			file = Files.copy(Paths.get(pathname), Paths.get(pathname)).toFile();
+			int dayNumber = 0;
+			for (PastiGiornalieriModel pasto : pastiSettimanali) {
+				++dayNumber;
+				services.scritturaFile(pasto, buffer, dayNumber);
+			}
+			buffer.close();
+			writer.close();
+			System.out.println(String.format("Scrittura del File %s completato", file.getName()));
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
 
+	}
+
+	private static void configInitializer() {
+		BootAutoConfiguration config = new BootAutoConfiguration();
+		services = config.mealService();
 	}
 
 }
