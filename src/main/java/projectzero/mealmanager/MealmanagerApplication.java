@@ -1,5 +1,7 @@
 package projectzero.mealmanager;
 
+import static projectzero.mealmanager.utils.MealConstants.FILE_PATH;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -25,8 +27,6 @@ import projectzero.mealmanager.model.pasti.PranzoModel;
 @EnableAutoConfiguration
 public class MealmanagerApplication {
 
-	private static final String FILE_PATH = "C:\\Users\\angelo.alfano\\Desktop\\firstwork\\Pasti Settimanali.doc";
-
 	@Autowired
 	private static MealServices services;
 
@@ -36,6 +36,7 @@ public class MealmanagerApplication {
 	public static void main(String[] args) {
 
 		configInitializer();
+		services.generateBodyDoc();
 		List<PastiGiornalieriModel> pastiSettimanali = new ArrayList<>();
 		List<PastoModel> pasti = new ArrayList<>();
 		services.initPasti(21, pastiSettimanali);

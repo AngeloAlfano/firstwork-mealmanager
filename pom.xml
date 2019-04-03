@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>projectzero</groupId>
-	<artifactId>firstwork-mealmanager</artifactId>
+	<artifactId>mealmanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>firstwork-mealmanager</name>
+	<name>mealmanager</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
